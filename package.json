@@ -1,0 +1,72 @@
+{
+  "name": "ai-free-tools",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI 自由创作工具箱 —— 低代码 AI 工作流桌面应用",
+  "author": "ai-free-tools",
+  "type": "module",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k -n VITE,ELECTRON -c cyan,green \"npm:dev:renderer\" \"npm:dev:electron\"",
+    "dev:renderer": "vite --config renderer/vite.config.js",
+    "dev:electron": "wait-on tcp:5273 && cross-env AIFT_DEV_SERVER=http://127.0.0.1:5273 electron .",
+    "build:renderer": "vite build --config renderer/vite.config.js",
+    "build": "npm run build:renderer && electron-builder",
+    "start": "npm run build:renderer && electron .",
+    "init": "node scripts/init-project.js",
+    "server": "node scripts/run-server.js",
+    "migrate": "node scripts/migrate-from-mysql.js",
+    "split-pages": "node scripts/split-workflow-pages.js",
+    "inspect": "node scripts/inspect.js",
+    "test": "npm run test:core && npm run test:api && npm run test:run",
+    "test:core": "node scripts/test-core.js",
+    "test:api": "node scripts/test-api.js",
+    "test:run": "node scripts/test-run.js"
+  },
+  "dependencies": {
+    "axios": "^1.21.0",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.23",
+    "element-ui": "^2.15.14",
+    "express": "^4.21.2",
+    "mime-types": "^2.1.35",
+    "sql.js": "^1.15.2",
+    "vue": "^2.7.16",
+    "vue-router": "^3.6.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue2": "^2.3.4",
+    "concurrently": "^9.2.1",
+    "cross-env": "^7.0.3",
+    "electron": "^45.2.3",
+    "electron-builder": "^26.18.0",
+    "mysql2": "^3.24.6",
+    "vite": "^5.4.21",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.aifreetools.app",
+    "productName": "AI Free Tools",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**/*",
+      "server/**/*",
+      "dist/renderer/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
+
