@@ -2,7 +2,7 @@
   <div class="aift-page">
     <page-table-card
       title="组件管理"
-      desc="内置组件由旧项目页面解析而来；自定义组件可声明传参并在页面里拖拽使用"
+      desc="内置组件可直接拖入页面；自定义组件可声明传参并在页面里拖拽使用"
       :loading="loading"
     >
       <template #actions>

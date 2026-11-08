@@ -1,7 +1,7 @@
 /**
  * 页面上下文构建
  *
- * 页面加载时由后端统一产出「全局上下文」给前端，结构对齐旧项目的解析规则：
+ * 页面加载时由后端统一产出「全局上下文」给前端，结构如下：
  *   {
  *     gb: { ...作品字段、资产、params、当前迭代项 item、prompt、model_name、page ... },
  *     stepList: [ {step_id, step_order, name, req, rsp} , ... ],
@@ -211,13 +211,13 @@ export async function buildPageContext({
     if (work && work[attr] !== undefined) gb[alias] = work[attr];
   }
 
-  // 兼容旧项目的根级平铺变量
+  // 根级平铺变量（简写）
   Object.assign(gb, buildLegacyVars({ work, stepList, stepOrder, gb }));
 
   return { gb, stepList, contextConfig: ctxCfg };
 }
 
-/** 旧版根级变量（prev_output / step_N_output / step_N_image ...），保证旧提示词可直接迁移 */
+/** 根级简写变量（prev_output / step_N_output / step_N_image ...），便于提示词直接引用 */
 function buildLegacyVars({ work, stepList, stepOrder, gb }) {
   const vars = {};
   const last = stepList[stepList.length - 1];

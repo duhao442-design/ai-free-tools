@@ -2,9 +2,9 @@
 
 基于 **Electron + Vue 2 + Node + SQLite** 的低代码 AI 工作流桌面应用。
 
-它是旧项目 `aitools`（Python FastAPI + Vue3 + MySQL）的重构版：保留模型配置与「AI 漫剧」目标，重构为
-**组件 → 页面 → 工作流 → 作品** 四层结构，页面由组件拖拽搭建，步骤页面可通过表单或 JSON 低代码配置，
-接口管理支持 `file / url / base64 / 非文件` 四类参数并在输入输出两端自动转换。
+以 **组件 → 页面 → 工作流 → 作品** 四层结构组织「AI 漫剧」创作：页面由组件拖拽搭建，
+步骤页面可通过表单或 JSON 低代码配置，接口管理支持 `file / url / base64 / 非文件`
+四类参数并在输入输出两端自动转换。
 
 ---
 
@@ -110,8 +110,8 @@ npm start
 
 ### 3.1 组件（组件管理）
 
-- **内置组件**：由旧项目页面解析而来（提示词模版、解析后提示词、列表数据表格、图片网格、执行按钮、执行结果等），
-  见 [docs/component-mapping.md](docs/component-mapping.md)。
+- **内置组件**：覆盖提示词模版、解析后提示词、列表数据表格、图片网格、执行按钮、执行结果等常见区块，
+  见 [docs/builtin-components.md](docs/builtin-components.md)。
 - **自定义组件**：在「组件管理 → 新建自定义组件」里声明 `props_schema`（暴露给页面搭建的传参）和
   `render_spec`（用 panel/title/text/field/image/json/input/button/divider 节点描述渲染）。
 
@@ -164,7 +164,7 @@ npm start
     （默认 `{index:3}-{label}` → `001-第1页.png`，支持 `{index}`/`{index:3}`/`{page}`/`{label}`），
     打包成 `.zip` 保存（纯 JS store 模式，无第三方依赖）。
   - 分镜行会自动补齐 `${item.dialogue_text}` / `${item.bubble_positions}` / `${item.dialogue_types}` 供第四步提示词使用。
-- **数据目录有独占锁**：应用运行时 `<数据目录>/ai-free-tools.db.lock` 存在，脚本/迁移会拒绝执行并提示先关闭应用，
+- **数据目录有独占锁**：应用运行时 `<数据目录>/ai-free-tools.db.lock` 存在，脚本会拒绝执行并提示先关闭应用，
   避免 sql.js（整库读入内存、整库写回）被两个进程互相覆盖。
 - **执行健壮性**：
   - 请求超时：文本 180s、图片 300s（`AIFT_TEXT_TIMEOUT_MS` / `AIFT_IMAGE_TIMEOUT_MS` 可调），超时会失败并写清原因；
@@ -176,14 +176,14 @@ npm start
   - 勾选 ≥3 行时执行按钮会二次确认，并提示本次处理行数与耗时/费用。
   - **前端不受 5 分钟限制**：`run / reset` 请求不设 axios 超时（其它请求仍 300s），
     长任务期间页面每 5 秒轮询步骤状态与进度，结束自动刷新出结果；请求被中断也会继续轮询。
-- 兼容老数据：页面 `execution` 为空时，执行配置回落到步骤字段（迁移过来的旧工作流仍可运行）。
+- **执行配置回退**：页面 `execution` 为空时，执行配置回落到步骤字段，已有工作流仍可继续运行。
 
 ### 3.4 作品（作品管理）
 
 - 作品绑定一个工作流，进入后按步骤流转：步骤条可切换、每步展示对应页面、执行后落库。
 - 支持重置（级联清空后续步骤）、作品参数编辑、页面上下文查看。
 
-## 4. 数据解析规则（对齐旧项目）
+## 4. 数据解析规则
 
 占位符 `${...}` 在页面上下文 / 提示词 / 接口参数中通用，详见 [docs/expression.md](docs/expression.md)。
 
@@ -247,8 +247,8 @@ ai-free-tools/
 │     │  ├─ design/        # 页面设计器（调色板/画布/传参面板/上下文面板）
 │     │  └─ runtime/       # 页面运行时 + 内置组件
 │     └─ api/ utils/ styles/
-├─ scripts/                # 初始化 / 迁移 / 自测 / 独立服务 / 数据体检
-└─ docs/                   # 解析规则、组件映射、迁移说明、界面截图
+├─ scripts/                # 初始化 / 自测 / 独立服务 / 数据体检
+└─ docs/                   # 解析规则、内置组件、界面截图
 ```
 
 ## 7. 自测
@@ -260,14 +260,3 @@ npm run test:api    # HTTP 接口冒烟
 npm run test:run    # 端到端：Mock 上游 → 执行三步 → 校验上下文与产物
 npm run inspect -- --data-dir <dir>   # 打印某数据目录的模型/接口/工作流/作品概览
 ```
-
-## 8. 从旧项目迁移
-
-见 [docs/migration.md](docs/migration.md)：
-
-```bash
-node scripts/migrate-from-mysql.js --data-dir "<新数据目录>" \
-  --mysql-host 127.0.0.1 --mysql-user root --mysql-password *** --mysql-database aitools
-```
-
-迁移前请先关闭桌面应用，避免 SQLite 文件被占用。

@@ -1,5 +1,5 @@
 /**
- * 模板解析引擎（对齐旧项目 app/services/template_resolver.py）
+ * 模板解析引擎
  *
  * 取值上下文统一为：
  *   {
@@ -22,7 +22,7 @@ export const PLACEHOLDER_RE = /\$\{\s*([A-Za-z_][\w.[\]]*)\s*\}/g;
 /** 缺失标记（区别于合法的 null） */
 export const MISSING = Symbol('MISSING');
 
-/** 旧占位符根 -> 新上下文根 */
+/** 占位符根 -> 上下文根 */
 const ROOT_ALIASES = {
   item: ['gb', 'item'],
   scene: ['gb', 'item'],
@@ -87,7 +87,7 @@ export function getByPath(context, path) {
     cur = ctx[rootKey];
     rest = segments.slice(1);
   } else if (isObj(ctx.gb) && Object.prototype.hasOwnProperty.call(ctx.gb, rootKey)) {
-    // 兼容旧项目根级平铺变量：${art_style} / ${prev_output} 等价于 ${gb.art_style} / ${gb.prev_output}
+    // 根级平铺简写：${art_style} / ${prev_output} 等价于 ${gb.art_style} / ${gb.prev_output}
     cur = ctx.gb[rootKey];
     rest = segments.slice(1);
   } else {

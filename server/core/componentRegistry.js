@@ -6,8 +6,7 @@
  *  props     暴露给「页面搭建」的传参配置；expr=true 表示值支持 ${...} 表达式
  *  runtime   Vue 组件文件名（renderer/src/components/runtime/builtin/*.vue）
  *
- * 这些组件是把旧项目 Works/WorkDetail/ConfigStepPanel/LegacyComicPanels/Interfaces 等
- * 页面里的功能区块「解析后内置」的结果，详见 docs/component-mapping.md。
+ * 这些组件覆盖提示词、列表、图片、执行结果等常见区块，详见 docs/builtin-components.md。
  */
 
 const p = (name, label, type, extra = {}) => ({

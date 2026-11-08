@@ -1,5 +1,5 @@
 /**
- * 接口调用服务（重构自旧项目 app/services/interface_runner.py）
+ * 接口调用服务：报文构造、调用与输出提取。
  *
  * 职责：
  *  1. buildRequest   ：读取接口配置的输入参数树，用模板解析引擎结合上下文构造请求报文；
@@ -581,7 +581,7 @@ export async function extractOutputs(interfaceParams, rawJson, modelOutputValue,
   return holder;
 }
 
-/** 从提取结果中挑主文本（旧引擎同款优先级） */
+/** 从提取结果中挑主文本（按优先级） */
 export function pickPrimaryText(outputs) {
   if (!outputs || typeof outputs !== 'object') return '';
   const primary = outputs._primary;

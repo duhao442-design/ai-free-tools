@@ -160,7 +160,7 @@ export default function pagesRouter() {
         body.description || '',
         JSON.stringify(json.parse(body.layout, [])),
         JSON.stringify(normalizeContextConfig(json.parse(body.context_config, DEFAULT_CONTEXT_CONFIG))),
-        // 只有显式传 execution 才写入：老页面保持 NULL，执行配置仍回落到工作流步骤（兼容老数据）
+        // 只有显式传 execution 才写入：未配置的页面保持 NULL，执行配置回落到工作流步骤
         body.execution === undefined || body.execution === null
           ? null
           : JSON.stringify(normalizeExecution(body.execution)),

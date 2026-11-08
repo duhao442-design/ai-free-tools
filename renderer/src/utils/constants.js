@@ -1,4 +1,4 @@
-/** 全局枚举与文案映射（对齐旧项目 + 新增文件类型） */
+/** 全局枚举与文案映射 */
 
 export const WORK_TYPES = [
   { value: 'comic', label: '漫画' },

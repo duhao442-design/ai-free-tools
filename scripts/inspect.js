@@ -1,5 +1,5 @@
 /**
- * 数据体检：启动内嵌服务并打印当前数据目录的概览（迁移后核对用）
+ * 数据体检：启动内嵌服务并打印当前数据目录的概览
  *   node scripts/inspect.js                        # 默认检查应用真实数据目录
  *   node scripts/inspect.js --data-dir <dir>
  */

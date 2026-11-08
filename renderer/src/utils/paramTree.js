@@ -1,4 +1,4 @@
-/** 接口参数树的前端编辑辅助（对齐旧项目 normalizeParams / loadParamRows 语义） */
+/** 接口参数树的前端编辑辅助 */
 
 let seq = 0;
 const nextKey = () => `p_${Date.now().toString(36)}_${(seq += 1)}`;

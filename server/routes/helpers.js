@@ -1,4 +1,4 @@
-/** 路由公共工具：统一响应格式（对齐旧项目 {code,message,data}） */
+/** 路由公共工具：统一响应格式 {code,message,data} */
 
 export const ok = (res, data) => res.json({ code: 0, message: 'success', data });
 

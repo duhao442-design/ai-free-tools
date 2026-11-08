@@ -89,7 +89,7 @@ export function getPage(db, pageId) {
 /**
  * 合并「页面执行配置」与「工作流步骤」：
  * 页面里配了 execution 就以页面为准（模型/接口/提示词/输入输出/试跑参数都属于页面），
- * 步骤字段只作为老数据（页面还没有 execution）的兜底。
+ * 步骤字段只作为页面还没有 execution 时的兜底。
  */
 export function mergeExecution(step, page) {
   if (!step) return step;
@@ -300,7 +300,7 @@ export function resolveRowReferences(step, rowCtx, row) {
   return { images, characters };
 }
 
-/** 兼容旧调用：只要第一张参考图 */
+/** 兼容调用方：只要第一张参考图 */
 export function resolveRowReference(step, rowCtx, row) {
   const { images } = resolveRowReferences(step, rowCtx, row);
   return images[0] || null;
@@ -482,7 +482,7 @@ export async function runStep(db, { work, workflow, stepIndex, inputs = {}, stor
   const prevRsp = parseJson(stepRow.rsp_data, {});
   const prevItems = Array.isArray(prevRsp.items) ? prevRsp.items : [];
 
-  // 重跑某一步时，后续步骤的结果已失效，级联清空（与旧项目行为一致）
+  // 重跑某一步时，后续步骤的结果已失效，级联清空
   const laterDone = db.get(
     `SELECT COUNT(*) AS c FROM work_step WHERE work_id = ? AND step_order > ? AND status <> 'pending'`,
     [work.id, stepIndex + 1],

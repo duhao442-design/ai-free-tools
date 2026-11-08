@@ -1,4 +1,4 @@
-﻿/** 模型管理（字段与旧项目 model_config 完全对齐，便于迁移） */
+/** 模型管理：模型配置的增删改查与连通性测试 */
 import express from 'express';
 import { now } from '../db/index.js';
 import { callInterface } from '../core/interfaceRunner.js';

@@ -86,8 +86,7 @@
         </el-descriptions-item>
       </el-descriptions>
       <div class="text-muted st-note">
-        数据保存在本地 SQLite 文件（ai-free-tools.db），可使用
-        <span class="mono">npm run migrate</span> 从旧 MySQL 项目导入模型、接口、模板等配置。
+        数据与上传文件都保存在本地数据目录，应用退出后不会丢失；数据库是单文件 SQLite（ai-free-tools.db）。
       </div>
     </div>
   </div>

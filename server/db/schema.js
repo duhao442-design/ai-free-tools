@@ -1,4 +1,4 @@
-/** 数据库结构（SQLite）。表结构与旧项目对齐，并按新架构扩展页面/组件/工作流。 */
+/** 数据库结构（SQLite）：工作流、页面、作品、组件、接口、资产与文件。 */
 export const SCHEMA = `
 CREATE TABLE IF NOT EXISTS app_setting (
   key         TEXT PRIMARY KEY,

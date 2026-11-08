@@ -45,7 +45,7 @@ function acquireLock(lockFile) {
     }
     if (info && isProcessAlive(Number(info.pid))) {
       throw new Error(
-        `数据目录正被进程 ${info.pid} 使用（AI Free Tools 可能正在运行）。请先关闭应用，再执行迁移或脚本。\n` +
+        `数据目录正被进程 ${info.pid} 使用（AI Free Tools 可能正在运行）。请先关闭应用，再执行脚本。\n` +
           `如确认没有进程在用，可删除锁文件后重试：${lockFile}`,
       );
     }
@@ -91,7 +91,7 @@ export async function openDatabase({ dataDir, file = 'ai-free-tools.db' }) {
   let timer = null;
   let dirty = false;
 
-  // 轻量迁移：老库缺列时补上（page.execution 用于「执行配置属于页面」）
+  // 轻量升级：老库缺列时补上（page.execution 用于「执行配置属于页面」）
   try {
     const cols = sqlite.exec("PRAGMA table_info('page')");
     const names = cols.length ? cols[0].values.map((row) => row[1]) : [];

@@ -15,7 +15,6 @@
     "start": "npm run build:renderer && electron .",
     "init": "node scripts/init-project.js",
     "server": "node scripts/run-server.js",
-    "migrate": "node scripts/migrate-from-mysql.js",
     "split-pages": "node scripts/split-workflow-pages.js",
     "inspect": "node scripts/inspect.js",
     "test": "npm run test:core && npm run test:api && npm run test:run",
@@ -40,7 +39,6 @@
     "cross-env": "^7.0.3",
     "electron": "^45.2.3",
     "electron-builder": "^26.18.0",
-    "mysql2": "^3.24.6",
     "vite": "^5.4.21",
     "wait-on": "^8.0.1"
   },
@@ -69,4 +67,3 @@
     }
   }
 }
-

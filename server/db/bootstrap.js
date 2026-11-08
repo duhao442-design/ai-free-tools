@@ -75,7 +75,7 @@ function page4Layout() {
 /**
  * 初始化数据库：默认设置 + 首次启动的示例页面 / 工作流。
  * @param {object} db 数据库实例
- * @param {{seedDemo?: boolean}} [options] seedDemo=false 时只写默认设置（迁移场景用，避免示例数据污染）
+ * @param {{seedDemo?: boolean}} [options] seedDemo=false 时只写默认设置（不写示例数据）
  */
 export function bootstrap(db, options = {}) {
   const seedDemo = options.seedDemo !== false;

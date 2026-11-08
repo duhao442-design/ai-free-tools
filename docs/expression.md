@@ -1,6 +1,6 @@
-﻿# 数据解析规则
+# 数据解析规则
 
-解析引擎实现：`server/core/resolver.js`（对齐旧项目 `app/services/template_resolver.py`）。
+解析引擎实现：`server/core/resolver.js`。
 
 ## 1. 上下文结构
 
@@ -41,7 +41,7 @@
 | `[n]` | 数组下标 | `${stepList[0].rsp.items[2].name}` |
 | 组合 | 任意嵌套 | `${gb.list[0].cover}` |
 
-根名别名（兼容旧模板）：
+根名别名：
 
 | 写法 | 等价 |
 |---|---|
@@ -60,7 +60,7 @@
 | JSON 文本 + 声明为 array/object | 先 `JSON.parse` 再递归渲染（避免多行文本破坏 JSON） |
 | 路径未命中 | 文本场景保留原占位符；单占位符无类型时保留原串 |
 
-## 4. 兼容旧项目的根级变量
+## 4. 根级简写变量
 
 | 变量 | 说明 |
 |---|---|

@@ -1,5 +1,5 @@
 /**
- * 端点格式注册表（对齐旧项目 app/services/endpoint_formats.py）
+ * 端点格式注册表。
  *
  * 「接口管理」的 format_type 决定 URL 拼接、鉴权头、请求体默认参数模板与响应主文本路径。
  * 这里只做「格式适配」；参数取值仍走 resolver，图片落盘/文件转存在 storage 中。

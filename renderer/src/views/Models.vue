@@ -2,7 +2,7 @@
   <div class="aift-page">
     <page-table-card
       title="模型管理"
-      desc="模型字段与旧项目保持一致：provider / model_type / format_type / model_name / base_url / api_key"
+      desc="模型字段包括：provider / model_type / format_type / model_name / base_url / api_key"
       :total="total"
       :page.sync="query.page_num"
       :page-size.sync="query.page_size"
